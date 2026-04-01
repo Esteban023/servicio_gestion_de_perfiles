@@ -1,0 +1,10 @@
+{
+  "email": "juan.perez@example.com",
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "phone": "+57 3052978656",
+  "rating": 4.5,
+  "fotoPerfilUrl": "https://example.com/fotos/juan_perez.jpg",
+  "descripcion": "Profesional con 5 años de experiencia en desarrollo de software",
+  "reviews": []
+}
