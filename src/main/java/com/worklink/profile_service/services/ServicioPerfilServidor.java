@@ -20,28 +20,19 @@ public class ServicioPerfilServidor {
     }
     
     public Optional<PerfilProveedor> actualizarPerfilServidor(String email, PerfilProveedor perfilActualizado) {
-        Optional<PerfilProveedor> perfilExistenteOpt = repPerfilServidor.findById(email);
-
-        if (perfilExistenteOpt.isPresent()) {
-            PerfilProveedor perfilExistente = perfilExistenteOpt.get();
-            
-            perfilExistente.setNombre(
-                perfilActualizado.getNombre()
-            );
-            perfilExistente.setApellido(
-                perfilActualizado.getApellido()
-            );
-            perfilExistente.setPhone(
-                perfilActualizado.getPhone()
-            );
-            perfilExistente.setFotoPerfilUrl(
-                perfilActualizado.getFotoPerfilUrl()
-            );
-            
-            return Optional.of(repPerfilServidor.save(perfilExistente));
-        } else {
-            return perfilExistenteOpt;
+        Optional<PerfilProveedor> perfilOpt = repPerfilServidor.findById(email);
+        
+        if (perfilOpt.isEmpty()) {
+            return Optional.empty();
         }
+        
+        PerfilProveedor perfilExistente = perfilOpt.get();
+        perfilExistente.setBiografia(perfilActualizado.getBiografia());
+        perfilExistente.setHorarioDisponibilidad(perfilActualizado.getHorarioDisponibilidad());
+        //perfilExistente.setCategoriaServicio(perfilActualizado.getCategoriaServicio());
+        
+        PerfilProveedor perfilGuardado = repPerfilServidor.save(perfilExistente);
+        return Optional.of(perfilGuardado);
     }
 
     private void validarPortafolio() {

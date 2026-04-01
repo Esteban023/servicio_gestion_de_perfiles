@@ -1,21 +1,23 @@
 package com.worklink.profile_service.model;
 
 import java.util.List;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-
+import java.util.ArrayList;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "perfil_proveedor")
-public class PerfilProveedor extends PerfilCliente {
+@Table(name = "perfiles_proveedor")
+public class PerfilProveedor {
     
-    @OneToMany(mappedBy = "perfilProveedor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
     
-    @Column(name = "biografia", length = 1000)
+    @OneToOne
+    @JoinColumn(name = "usuario_email", referencedColumnName = "email", nullable = false)
+    private Usuario usuario;
+    
+    @Column(name = "biografia", length = 100)
     private String biografia;
     
     @Column(name = "verificado", nullable = false)
@@ -23,70 +25,143 @@ public class PerfilProveedor extends PerfilCliente {
     
     @Column(name = "horario_disponibilidad", length = 500)
     private String horarioDisponibilidad;
-
-    // Antecedentes legales y certificaciones
-    @Column(name = "cedula") //Imagen de la cédula
+    
+    @Column(name = "rating_promedio")
+    private Double ratingPromedio;
+    
+    // URLs de documentos
+    @Column(name = "cedula_url")
     private String cedulaUrl;
     
-    @Column(name = "medidas_correctivas", length = 500) //Medidas correctivas
-    private String medidasCorrectivasUrl;
-    
-    @Column(name = "certificado_salud") //Imagen del certificado de salud
+    @Column(name = "certificado_salud_url")
     private String certificadoSaludUrl;
     
-    @Column(name = "certificado_inhabilidades") //Antecedentes delitos sexuales
-    private String certificadoInhabilidaesUrl;
-    
-    @Column(name = "certificado_antecedentes") //Imagen del certificado de antecedentes
+    @Column(name = "certificado_antecedentes_url")
     private String certificadoAntecedentesUrl;
     
-    public PerfilProveedor() {}
-
-
-    public PerfilProveedor(List<Review> reviews, String biografia, boolean verificado, String horarioDisponibilidad, String cedulaUrl, String medidasCorrectivasUrl,
-        String certificadoSaludUrl, String certificadoInhabilidaesUrl, String certificadoAntecedentesUrl) 
-    {
-        this.reviews = reviews;
-        this.biografia = biografia;
-        this.cedulaUrl = cedulaUrl;
-        this.verificado = verificado;
-        this.certificadoSaludUrl = certificadoSaludUrl;
-        this.horarioDisponibilidad = horarioDisponibilidad;
-        this.medidasCorrectivasUrl = medidasCorrectivasUrl;
-        this.certificadoInhabilidaesUrl = certificadoInhabilidaesUrl;
-        this.certificadoAntecedentesUrl = certificadoAntecedentesUrl;
+    @Column(name = "certificado_inhabilidades_url")
+    private String certificadoInhabilidadesUrl;
+    
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+    
+    public PerfilProveedor() {
+        this.verificado = false;
+        this.ratingPromedio = 0.0;
     }
-
-    public List<Review> getReviews() {
-        return reviews;
+    
+    public PerfilProveedor(Usuario usuario) {
+        this();
+        this.usuario = usuario;
     }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    
+    // Getters y setters
+    public Long getId() {
+        return id;
     }
-
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
     public String getBiografia() {
         return biografia;
     }
-
+    
     public void setBiografia(String biografia) {
         this.biografia = biografia;
     }
-
+    
     public boolean isVerificado() {
         return verificado;
     }
-
+    
     public void setVerificado(boolean verificado) {
         this.verificado = verificado;
     }
-
+    
     public String getHorarioDisponibilidad() {
         return horarioDisponibilidad;
     }
-
+    
     public void setHorarioDisponibilidad(String horarioDisponibilidad) {
         this.horarioDisponibilidad = horarioDisponibilidad;
     }
-
+    
+    public Double getRatingPromedio() {
+        return ratingPromedio;
+    }
+    
+    public void setRatingPromedio(Double ratingPromedio) {
+        this.ratingPromedio = ratingPromedio;
+    }
+    
+    public String getCedulaUrl() {
+        return cedulaUrl;
+    }
+    
+    public void setCedulaUrl(String cedulaUrl) {
+        this.cedulaUrl = cedulaUrl;
+    }
+    
+    public String getCertificadoSaludUrl() {
+        return certificadoSaludUrl;
+    }
+    
+    public void setCertificadoSaludUrl(String certificadoSaludUrl) {
+        this.certificadoSaludUrl = certificadoSaludUrl;
+    }
+    
+    public String getCertificadoAntecedentesUrl() {
+        return certificadoAntecedentesUrl;
+    }
+    
+    public void setCertificadoAntecedentesUrl(String certificadoAntecedentesUrl) {
+        this.certificadoAntecedentesUrl = certificadoAntecedentesUrl;
+    }
+    
+    public String getCertificadoInhabilidadesUrl() {
+        return certificadoInhabilidadesUrl;
+    }
+    
+    public void setCertificadoInhabilidadesUrl(String certificadoInhabilidadesUrl) {
+        this.certificadoInhabilidadesUrl = certificadoInhabilidadesUrl;
+    }
+    
+    public List<Review> getReviews() {
+        return reviews;
+    }
+    
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+    
+    // Método para agregar review
+    public void addReview(Review review) {
+        reviews.add(review);
+        review.setProveedor(this);
+    }
+    
+    // Método para actualizar rating promedio
+    public void actualizarRatingPromedio() {
+        if (reviews.isEmpty()) {
+            this.ratingPromedio = 0.0;
+            return;
+        }
+        
+        double promedio = reviews.stream()
+            .mapToInt(Review::getCalificacion)
+            .average()
+            .orElse(0.0);
+        
+        this.ratingPromedio = promedio;
+    }
 }

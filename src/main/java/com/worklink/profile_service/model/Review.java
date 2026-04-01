@@ -1,100 +1,89 @@
 package com.worklink.profile_service.model;
 
-import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "review")
+@Table(name = "reviews")
 public class Review {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     
-    @Column(name = "rating", nullable = false) //Max 5, mínimo 1
-    private Integer rating;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    private PerfilCliente cliente;
     
-    @Column(name = "fecha", nullable = false)
-    private LocalDate fecha;
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
+    private PerfilProveedor proveedor;
     
-    @Column(name = "descripcion", length = 500)
-    private String descripcion;
+    @Column(name = "calificacion", nullable = false)
+    private Integer calificacion;
     
-    @Column(name = "nombre_cliente", length = 100)
-    private String nombreCliente;
+    @Column(name = "comentario", length = 1000)
+    private String comentario;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_email")
-    private PerfilCliente perfilCliente;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "proveedor_email")
-    private PerfilProveedor perfilProveedor;
-
+    @Column(name = "fecha_creacion")
+    private LocalDateTime fechaCreacion;
+    
     public Review() {
-        
+        this.fechaCreacion = LocalDateTime.now();
     }
-
-    public Review(Integer rating, LocalDate fecha, String descripcion, String nombreCliente) {
-        this.rating = rating;
-        this.fecha = fecha;
-        this.descripcion = descripcion;
-        this.nombreCliente = nombreCliente;
+    
+    public Review(Integer calificacion, String comentario) {
+        this();
+        this.calificacion = calificacion;
+        this.comentario = comentario;
     }
-
-    public Integer getId() {
+    
+    // Getters y setters
+    public Long getId() {
         return id;
     }
-
-    public void setId(Integer id) {
+    
+    public void setId(Long id) {
         this.id = id;
     }
-
-    public Integer getRating() {
-        return rating;
+    
+    public PerfilCliente getCliente() {
+        return cliente;
     }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
+    
+    public void setCliente(PerfilCliente cliente) {
+        this.cliente = cliente;
     }
-
-    public LocalDate getFecha() {
-        return fecha;
+    
+    public PerfilProveedor getProveedor() {
+        return proveedor;
     }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    
+    public void setProveedor(PerfilProveedor proveedor) {
+        this.proveedor = proveedor;
     }
-
-    public String getDescripcion() {
-        return descripcion;
+    
+    public Integer getCalificacion() {
+        return calificacion;
     }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
     }
-
-    public String getNombreCliente() {
-        return nombreCliente;
+    
+    public String getComentario() {
+        return comentario;
     }
-
-    public void setNombreCliente(String nombreCliente) {
-        this.nombreCliente = nombreCliente;
+    
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
-
-    public PerfilCliente getPerfilCliente() {
-        return perfilCliente;
+    
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
     }
-
-    public void setPerfilCliente(PerfilCliente perfilCliente) {
-        this.perfilCliente = perfilCliente;
+    
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }

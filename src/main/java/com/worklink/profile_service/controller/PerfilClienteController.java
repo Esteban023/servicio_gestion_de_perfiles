@@ -31,9 +31,8 @@ public class PerfilClienteController {
 
     @GetMapping("/{email}")
     public ResponseEntity<PerfilCliente> getPerfilClienteByEmail(@RequestBody PerfilCliente perfilCliente) {
-        String email = perfilCliente.getEmail();
+        String email = perfilCliente.getUsuario().getEmail().toLowerCase(); 
         Optional<PerfilCliente> perfilClienteOpt = servicioPerfilCliente.obtenerPerfilCliente(email);
-        
         if (perfilClienteOpt.isPresent()) {
             return ResponseEntity.ok(perfilClienteOpt.get());
         } else {
@@ -43,7 +42,7 @@ public class PerfilClienteController {
 
     @PostMapping
     public ResponseEntity<PerfilCliente> createPerfilCliente(@RequestBody PerfilCliente perfilCliente) {
-        String email = perfilCliente.getEmail().toLowerCase(); 
+        String email = perfilCliente.getUsuario().getEmail().toLowerCase(); 
 
         if (servicioPerfilCliente.obtenerPerfilCliente(email).isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

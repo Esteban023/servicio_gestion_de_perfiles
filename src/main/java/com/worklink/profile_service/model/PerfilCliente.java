@@ -1,112 +1,116 @@
 package com.worklink.profile_service.model;
 
 import java.util.List;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import java.util.ArrayList;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "perfil_cliente")
-@Inheritance(strategy = InheritanceType.JOINED)
-
+@Table(name = "perfiles_cliente")
 public class PerfilCliente {
-
+    
     @Id
-    @Column(name = "email", nullable = false)
-    private String email;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    
+    @OneToOne
+    @JoinColumn(name = "usuario_email", referencedColumnName = "email", nullable = false)
+    private Usuario usuario;
+    
+    @Column(name = "rating_promedio")
+    private float ratingPromedio;
+    
+    @Column(name = "ocupacion", length = 100)
+    private String ocupacion;
+    
+    @Column(name = "activo", nullable = false)
+    private boolean activo;
 
-    @Column(name = "rating", nullable = false)
-    private float rating;
-
-    @Column(name = "phone", length = 20)
-    private String phone;
+    @Column(name = "verificado", nullable = false)
+    private boolean verificado;
     
-    @OneToMany(mappedBy = "perfilCliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
     
-    @Column(name = "nombre", nullable = false, length = 100)
-    private String nombre;
-    
-    @Column(name = "apellido", nullable = false, length = 100)
-    private String apellido;
-    
-    @Column(name = "foto_perfil_url", length = 500)
-    private String fotoPerfilUrl;
-    
-    @Column(name = "descripcion", length = 500)
-    private String descripcion;    
-       
     public PerfilCliente() {
-
+        this.activo = true;
+        this.verificado = false;
+        this.ratingPromedio = 0.0f;
     }
-
+    
+    public PerfilCliente(Usuario usuario) {
+        this();
+        this.usuario = usuario;
+    }
+    
+    // Getters y setters
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
     public float getRating() {
-        return rating;
+        return ratingPromedio;
     }
-
+    
     public void setRating(float rating) {
-        this.rating = rating;
+        this.ratingPromedio = rating;
+    }
+    
+    public String getOcupacion() {
+        return ocupacion;
     }
 
-    public String getEmail() {
-        return email;
+    public void setOcupacion(String ocupacion) {
+        this.ocupacion = ocupacion;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public boolean isVerificado() {
+        return verificado;
     }
 
-    public String getPhone() {
-        return phone;
+    public void setVerificado(boolean verificado) {
+        this.verificado = verificado;
     }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public List<Review> getReview() {
+    
+    public List<Review> getReviews() {
         return reviews;
     }
-
-    public void setReview(List<Review> reviews) {
+    
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
-
-    public String getNombre() {
-        return nombre;
+    
+    public float getRatingPromedio() {
+        return ratingPromedio;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setRatingPromedio(float ratingPromedio) {
+        this.ratingPromedio = ratingPromedio;
     }
 
-    public String getApellido() {
-        return apellido;
+    public boolean isActivo() {
+        return activo;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
-    public String getFotoPerfilUrl() {
-        return fotoPerfilUrl;
+    // Método para agregar review
+    public void addReview(Review review) {
+        reviews.add(review);
+        review.setCliente(this);
     }
-
-    public void setFotoPerfilUrl(String fotoPerfilUrl) {
-        this.fotoPerfilUrl = fotoPerfilUrl;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
 }

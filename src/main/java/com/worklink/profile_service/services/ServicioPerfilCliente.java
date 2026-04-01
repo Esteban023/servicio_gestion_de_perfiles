@@ -26,31 +26,19 @@ public class ServicioPerfilCliente {
     }
 
     public PerfilCliente actualizarPerfilCliente(String email, PerfilCliente perfilActualizado) {
-        Optional<PerfilCliente> perfilExistenteOpt = repositorioPerfilCliente.findById(email);
-
-        if (perfilExistenteOpt.isPresent()) {
-            PerfilCliente perfilExistente = perfilExistenteOpt.get();
-            
-            perfilExistente.setNombre(
-                perfilActualizado.getNombre()
-            );
-            perfilExistente.setApellido(
-                perfilActualizado.getApellido()
-            );
-            perfilExistente.setPhone(
-                perfilActualizado.getPhone()
-            );
-            perfilExistente.setFotoPerfilUrl(
-                perfilActualizado.getFotoPerfilUrl()
-            );
-            perfilExistente.setDescripcion(
-                perfilActualizado.getDescripcion()
-            );
-            
-            return repositorioPerfilCliente.save(perfilExistente);
-        } else {
-            throw new RuntimeException("Perfil no encontrado");
+        Optional<PerfilCliente> perfilOpt = repositorioPerfilCliente.findById(email);
+        
+        if (perfilOpt.isEmpty()) {
+            return null;
         }
+        
+        PerfilCliente perfilExistente = perfilOpt.get();
+        perfilExistente.setActivo(perfilActualizado.isActivo());
+        perfilExistente.setVerificado(perfilActualizado.isVerificado());
+        perfilExistente.setRatingPromedio(perfilActualizado.getRatingPromedio());
+        
+        PerfilCliente perfilGuardado = repositorioPerfilCliente.save(perfilExistente);
+        return perfilGuardado;
     }
 
     public void eliminarPerfilCliente(String email) {
