@@ -1,13 +1,15 @@
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\controller\PerfilClienteController.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\controller\PerfilServidorController.java
+C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\controller\UsuarioController.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\model\PerfilCliente.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\model\PerfilProveedor.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\model\Portafolio.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\model\Review.java
+C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\model\Ubicacion.java
+C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\model\Usuario.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\ProfileServiceApplication.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\repository\RepositorioPerfilCliente.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\repository\RepositorioPerfilServidor.java
-C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\security\CustomUserDetails.java
-C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\security\SecurityConfig.java
+C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\repository\RepositorioUsuario.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\services\ServicioPerfilCliente.java
 C:\Users\Esteban Betancourt L\Documents\worklink\profile_service\src\main\java\com\worklink\profile_service\services\ServicioPerfilServidor.java

@@ -1,0 +1,15 @@
+com\worklink\profile_service\services\ServicioPerfilCliente.class
+com\worklink\profile_service\model\Portafolio.class
+com\worklink\profile_service\model\Usuario.class
+com\worklink\profile_service\repository\RepositorioUsuario.class
+com\worklink\profile_service\controller\UsuarioController.class
+com\worklink\profile_service\ProfileServiceApplication.class
+com\worklink\profile_service\model\PerfilCliente.class
+com\worklink\profile_service\services\ServicioPerfilServidor.class
+com\worklink\profile_service\model\PerfilProveedor.class
+com\worklink\profile_service\model\Review.class
+com\worklink\profile_service\repository\RepositorioPerfilServidor.class
+com\worklink\profile_service\controller\PerfilServidorController.class
+com\worklink\profile_service\controller\PerfilClienteController.class
+com\worklink\profile_service\model\Ubicacion.class
+com\worklink\profile_service\repository\RepositorioPerfilCliente.class

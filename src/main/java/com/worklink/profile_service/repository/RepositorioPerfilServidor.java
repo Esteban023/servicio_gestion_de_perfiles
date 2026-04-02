@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 @Repository
-public interface RepositorioPerfilServidor extends JpaRepository<PerfilProveedor, String> {
+public interface RepositorioPerfilServidor extends JpaRepository<PerfilProveedor, Long> {
 
 }

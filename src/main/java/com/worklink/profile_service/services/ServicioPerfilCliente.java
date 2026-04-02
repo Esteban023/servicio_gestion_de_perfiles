@@ -22,11 +22,11 @@ public class ServicioPerfilCliente {
     }
 
     public Optional<PerfilCliente> obtenerPerfilCliente(String email) {
-        return repositorioPerfilCliente.findById(email);
+        return repositorioPerfilCliente.findByUsuarioEmail(email);
     }
 
     public PerfilCliente actualizarPerfilCliente(String email, PerfilCliente perfilActualizado) {
-        Optional<PerfilCliente> perfilOpt = repositorioPerfilCliente.findById(email);
+        Optional<PerfilCliente> perfilOpt = repositorioPerfilCliente.findByUsuarioEmail(email);
         
         if (perfilOpt.isEmpty()) {
             return null;
@@ -42,7 +42,7 @@ public class ServicioPerfilCliente {
     }
 
     public void eliminarPerfilCliente(String email) {
-        repositorioPerfilCliente.deleteById(email);
+        repositorioPerfilCliente.deleteByUsuarioEmail(email);
     }
 
 

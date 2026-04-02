@@ -1,37 +1,45 @@
 package com.worklink.profile_service.model;
 
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
     
     @Id
+    @JsonProperty("email") // Para mapear el campo "email" del JSON al atributo "email" de la clase
     @Column(name = "email", nullable = false, length = 100)
     private String email;  // Mismo email del auth service
     
+    @JsonProperty("nombre")
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
     
+    @JsonProperty("apellido")
     @Column(name = "apellido", nullable = false, length = 100)
     private String apellido;
     
+    @JsonProperty("telefono")   
     @Column(name = "telefono", length = 20)
     private String telefono;
     
+    @JsonProperty("fotoPerfilUrl")
     @Column(name = "foto_perfil_url", length = 500)
     private String fotoPerfilUrl;
     
+    @JsonProperty("fechaNacimiento")
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
     
+    @JsonProperty("fechaRegistro")
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
     
-    
+
     // Relaciones con perfiles
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private PerfilCliente perfilCliente;

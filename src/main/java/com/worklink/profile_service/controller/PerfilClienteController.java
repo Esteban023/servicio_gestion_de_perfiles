@@ -14,15 +14,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.worklink.profile_service.model.PerfilCliente;
+import com.worklink.profile_service.repository.RepositorioUsuario;
 import com.worklink.profile_service.services.ServicioPerfilCliente;
 
 
 @RestController
 @RequestMapping("/api/perfil-cliente")
 public class PerfilClienteController {
-
     @Autowired
     private ServicioPerfilCliente servicioPerfilCliente;
+
+    @Autowired
+    private RepositorioUsuario repoUsuario;
 
     @GetMapping
     public List<PerfilCliente> getAllPerfilClientes() {
@@ -30,30 +33,32 @@ public class PerfilClienteController {
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<PerfilCliente> getPerfilClienteByEmail(@RequestBody PerfilCliente perfilCliente) {
-        String email = perfilCliente.getUsuario().getEmail().toLowerCase(); 
-        Optional<PerfilCliente> perfilClienteOpt = servicioPerfilCliente.obtenerPerfilCliente(email);
+    public ResponseEntity<PerfilCliente> getPerfilClienteByEmail(@PathVariable String email) {
+        Optional<PerfilCliente> perfilClienteOpt = servicioPerfilCliente.obtenerPerfilCliente(email.toLowerCase());
+
         if (perfilClienteOpt.isPresent()) {
             return ResponseEntity.ok(perfilClienteOpt.get());
         } else {
             return ResponseEntity.notFound().build();
         }
+        
     }
 
     @PostMapping
-    public ResponseEntity<PerfilCliente> createPerfilCliente(@RequestBody PerfilCliente perfilCliente) {
-        String email = perfilCliente.getUsuario().getEmail().toLowerCase(); 
+    public ResponseEntity<PerfilCliente> createPerfilCliente(@RequestBody PerfilCliente cliente) {
+        String email = cliente.getUsuario().getEmail().toLowerCase(); 
 
-        if (servicioPerfilCliente.obtenerPerfilCliente(email).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+        if (repoUsuario.findById(email).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();  
+        } 
         
         try {
-            PerfilCliente savedPerfilCliente = servicioPerfilCliente.guardarPerfilCliente(perfilCliente);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedPerfilCliente);
+            PerfilCliente savedCliente = servicioPerfilCliente.guardarPerfilCliente(cliente);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedCliente);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+
     }
 
     @PutMapping("/{email}")
