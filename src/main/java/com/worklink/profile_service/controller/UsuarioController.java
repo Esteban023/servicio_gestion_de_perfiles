@@ -29,9 +29,11 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<Usuario> crearUsuario(@RequestBody UsuarioDTO usuario) {
-        Logger logger = (Logger) LoggerFactory.getLogger(getClass());
-    
-        // Log completo del objeto recibido
+        Logger logger = (Logger) LoggerFactory.getLogger(
+            getClass()
+        );
+
+        //Log completo del objeto recibido
         logger.info("=== Usuario recibido ===");
         logger.info("Email: {}", usuario.getEmail());
         logger.info("Nombre: {}", usuario.getNombre());
@@ -39,9 +41,8 @@ public class UsuarioController {
         logger.info("Teléfono: {}", usuario.getTelefono());
         logger.info("Foto URL: {}", usuario.getFotoPerfilUrl());
         logger.info("Fecha Nac: {}", usuario.getFechaNacimiento());
-        
+
         String email = usuario.getEmail();
-        
         if (email == null || email.trim().isEmpty()) {
             logger.error("Email es null o vacío!");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -61,6 +62,7 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
 
     @GetMapping("/{email}")
     public ResponseEntity<UsuarioDTO> obtenerUsuario(@PathVariable String email) {
