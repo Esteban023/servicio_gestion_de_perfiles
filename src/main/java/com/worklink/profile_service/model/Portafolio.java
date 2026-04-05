@@ -14,7 +14,7 @@ public class Portafolio {
     private boolean verificado;
 
     @JsonIgnore
-    private PerfilProveedor perfilProveedor;
+    private Proveedor perfilProveedor;
 
     public Portafolio() {}
 
@@ -74,11 +74,11 @@ public class Portafolio {
         this.fechaTrabajo = fechaTrabajo;
     }
 
-    public PerfilProveedor getPerfilProveedor() {
+    public Proveedor getPerfilProveedor() {
         return perfilProveedor;
     }
 
-    public void setPerfilProveedor(PerfilProveedor perfilProveedor) {
+    public void setPerfilProveedor(Proveedor perfilProveedor) {
         this.perfilProveedor = perfilProveedor;
     }
 

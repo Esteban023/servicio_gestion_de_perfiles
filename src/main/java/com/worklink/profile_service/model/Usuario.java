@@ -4,6 +4,8 @@ package com.worklink.profile_service.model;
 import java.time.LocalDate;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -41,11 +43,13 @@ public class Usuario {
     
 
     // Relaciones con perfiles
+    @JsonIgnore
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PerfilCliente perfilCliente;
+    private Cliente perfilCliente;
     
+    @JsonIgnore
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PerfilProveedor perfilProveedor;
+    private Proveedor perfilProveedor;
     
     public Usuario() {
         this.fechaRegistro = LocalDateTime.now();
@@ -117,22 +121,24 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
     
-    public PerfilCliente getPerfilCliente() {
+    @JsonIgnore
+    public Cliente getPerfilCliente() {
         return perfilCliente;
     }
     
-    public void setPerfilCliente(PerfilCliente perfilCliente) {
+    public void setPerfilCliente(Cliente perfilCliente) {
         this.perfilCliente = perfilCliente;
         if (perfilCliente != null) {
             perfilCliente.setUsuario(this);
         }
     }
     
-    public PerfilProveedor getPerfilProveedor() {
+    @JsonIgnore
+    public Proveedor getPerfilProveedor() {
         return perfilProveedor;
     }
     
-    public void setPerfilProveedor(PerfilProveedor perfilProveedor) {
+    public void setPerfilProveedor(Proveedor perfilProveedor) {
         this.perfilProveedor = perfilProveedor;
         if (perfilProveedor != null) {
             perfilProveedor.setUsuario(this);

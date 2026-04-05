@@ -1,7 +1,8 @@
 package com.worklink.profile_service.services;
 
+import java.util.Optional;
 import org.springframework.stereotype.Service;
-import com.worklink.profile_service.model.PerfilProveedor;
+import com.worklink.profile_service.model.Proveedor;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.worklink.profile_service.repository.RepositorioPerfilServidor;
 
@@ -10,8 +11,12 @@ public class ServicioPerfilServidor {
 
     @Autowired RepositorioPerfilServidor repPerfilServidor;
 
-    public PerfilProveedor guardarPerfilServidor(PerfilProveedor perfil) {
-        return (PerfilProveedor) repPerfilServidor.save(perfil);
+    public Proveedor guardarPerfilServidor(Proveedor perfil) {
+        return (Proveedor) repPerfilServidor.save(perfil);
+    }
+
+    public Optional<Proveedor> obtenerPerfilServidorPorEmail(String email) {
+        return repPerfilServidor.findByUsuarioEmail(email);
     }
 
 }

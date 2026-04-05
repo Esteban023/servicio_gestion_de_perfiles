@@ -13,11 +13,11 @@ public class Review {
     
     @ManyToOne
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
-    private PerfilCliente cliente;
+    private Cliente cliente;
     
     @ManyToOne
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
-    private PerfilProveedor proveedor;
+    private Proveedor proveedor;
     
     @Column(name = "calificacion", nullable = false)
     private Integer calificacion;
@@ -47,19 +47,19 @@ public class Review {
         this.id = id;
     }
     
-    public PerfilCliente getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
     
-    public void setCliente(PerfilCliente cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
     
-    public PerfilProveedor getProveedor() {
+    public Proveedor getProveedor() {
         return proveedor;
     }
     
-    public void setProveedor(PerfilProveedor proveedor) {
+    public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
     

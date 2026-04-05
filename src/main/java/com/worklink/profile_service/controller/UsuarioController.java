@@ -16,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.worklink.profile_service.repository.RepositorioUsuario;
 
 import ch.qos.logback.classic.Logger;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -58,6 +61,22 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<UsuarioDTO> obtenerUsuario(@PathVariable String email) {
+        try {
+            Optional<Usuario> usuarioOpt = repoUsuario.findById(email.toLowerCase());
+            if (usuarioOpt.isPresent()) {
+                UsuarioDTO usuarioDTO = UsuarioMapper.toDto(usuarioOpt.get());
+                return ResponseEntity.ok(usuarioDTO);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+    
 
 
 }

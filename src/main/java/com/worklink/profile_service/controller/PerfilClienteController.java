@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.worklink.profile_service.model.PerfilCliente;
+import com.worklink.profile_service.DTOS.ClienteDTO;
+import com.worklink.profile_service.Mappers.ClienteMapper;
+import com.worklink.profile_service.model.Cliente;
 import com.worklink.profile_service.repository.RepositorioUsuario;
 import com.worklink.profile_service.services.ServicioPerfilCliente;
 
@@ -28,16 +30,18 @@ public class PerfilClienteController {
     private RepositorioUsuario repoUsuario;
 
     @GetMapping
-    public List<PerfilCliente> getAllPerfilClientes() {
+    public List<Cliente> getAllPerfilClientes() {
         return servicioPerfilCliente.obtenerTodosLosPerfilesClientes();
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<PerfilCliente> getPerfilClienteByEmail(@PathVariable String email) {
-        Optional<PerfilCliente> perfilClienteOpt = servicioPerfilCliente.obtenerPerfilCliente(email.toLowerCase());
+    public ResponseEntity<ClienteDTO> getPerfilClienteByEmail(@PathVariable String email) {
+        Optional<Cliente> perfilClienteOpt = servicioPerfilCliente.obtenerPerfilCliente(email.toLowerCase());
 
         if (perfilClienteOpt.isPresent()) {
-            return ResponseEntity.ok(perfilClienteOpt.get());
+            return ResponseEntity.ok(
+                ClienteMapper.toDto(perfilClienteOpt.get())
+            );
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -45,7 +49,7 @@ public class PerfilClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<PerfilCliente> createPerfilCliente(@RequestBody PerfilCliente cliente) {
+    public ResponseEntity<Cliente> createPerfilCliente(@RequestBody Cliente cliente) {
         String email = cliente.getUsuario().getEmail().toLowerCase(); 
 
         if (repoUsuario.findById(email).isEmpty()) {
@@ -53,7 +57,7 @@ public class PerfilClienteController {
         } 
         
         try {
-            PerfilCliente savedCliente = servicioPerfilCliente.guardarPerfilCliente(cliente);
+            Cliente savedCliente = servicioPerfilCliente.guardarPerfilCliente(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedCliente);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -62,8 +66,8 @@ public class PerfilClienteController {
     }
 
     @PutMapping("/{email}")
-    public ResponseEntity<PerfilCliente> updatePerfilCliente(@PathVariable String email, @RequestBody PerfilCliente perfilClienteDetails) {
-        PerfilCliente updatedPerfilCliente = servicioPerfilCliente.actualizarPerfilCliente(email, perfilClienteDetails);
+    public ResponseEntity<Cliente> updatePerfilCliente(@PathVariable String email, @RequestBody Cliente perfilClienteDetails) {
+        Cliente updatedPerfilCliente = servicioPerfilCliente.actualizarPerfilCliente(email, perfilClienteDetails);
 
         if (updatedPerfilCliente == null) {
             return ResponseEntity.notFound().build();
@@ -74,7 +78,7 @@ public class PerfilClienteController {
 
     @DeleteMapping("/{email}")
     public ResponseEntity<Void> deletePerfilCliente(@PathVariable String email) {
-        Optional<PerfilCliente> perfilCliente = servicioPerfilCliente.obtenerPerfilCliente(email);
+        Optional<Cliente> perfilCliente = servicioPerfilCliente.obtenerPerfilCliente(email);
         if (perfilCliente.isPresent()) {
             servicioPerfilCliente.eliminarPerfilCliente(email);
             return ResponseEntity.noContent().build();

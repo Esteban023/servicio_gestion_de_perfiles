@@ -1,18 +1,22 @@
 package com.worklink.profile_service.model;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "perfiles_proveedor")
-public class PerfilProveedor {
+public class Proveedor {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "usuario_email", referencedColumnName = "email", nullable = false)
     private Usuario usuario;
@@ -22,7 +26,10 @@ public class PerfilProveedor {
     
     @Column(name = "verificado", nullable = false)
     private boolean verificado;
-    
+
+    @Column(name = "activo", nullable = false)
+    private boolean activo;
+
     @Column(name = "horario_disponibilidad", length = 500)
     private String horarioDisponibilidad;
     
@@ -42,15 +49,16 @@ public class PerfilProveedor {
     @Column(name = "certificado_inhabilidades_url")
     private String certificadoInhabilidadesUrl;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
     
-    public PerfilProveedor() {
+    public Proveedor() {
         this.verificado = false;
         this.ratingPromedio = 0.0;
     }
     
-    public PerfilProveedor(Usuario usuario) {
+    public Proveedor(Usuario usuario) {
         this();
         this.usuario = usuario;
     }
@@ -80,6 +88,14 @@ public class PerfilProveedor {
         this.biografia = biografia;
     }
     
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
     public boolean isVerificado() {
         return verificado;
     }

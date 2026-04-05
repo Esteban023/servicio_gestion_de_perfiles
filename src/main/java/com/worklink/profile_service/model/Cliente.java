@@ -1,24 +1,28 @@
 package com.worklink.profile_service.model;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "perfiles_cliente")
-public class PerfilCliente {
+public class Cliente {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "usuario_email", referencedColumnName = "email", nullable = false)
     private Usuario usuario;
     
     @Column(name = "rating_promedio")
-    private float ratingPromedio;
+    private Double ratingPromedio;
     
     @Column(name = "ocupacion", length = 100)
     private String ocupacion;
@@ -29,16 +33,17 @@ public class PerfilCliente {
     @Column(name = "verificado", nullable = false)
     private boolean verificado;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
     
-    public PerfilCliente() {
+    public Cliente() {
         this.activo = true;
         this.verificado = false;
-        this.ratingPromedio = 0.0f;
+        this.ratingPromedio = 0.0;
     }
     
-    public PerfilCliente(Usuario usuario) {
+    public Cliente(Usuario usuario) {
         this();
         this.usuario = usuario;
     }
@@ -60,11 +65,11 @@ public class PerfilCliente {
         this.usuario = usuario;
     }
     
-    public float getRating() {
+    public Double getRating() {
         return ratingPromedio;
     }
     
-    public void setRating(float rating) {
+    public void setRating(Double rating) {
         this.ratingPromedio = rating;
     }
     
@@ -92,11 +97,11 @@ public class PerfilCliente {
         this.reviews = reviews;
     }
     
-    public float getRatingPromedio() {
+    public Double getRatingPromedio() {
         return ratingPromedio;
     }
 
-    public void setRatingPromedio(float ratingPromedio) {
+    public void setRatingPromedio(Double ratingPromedio) {
         this.ratingPromedio = ratingPromedio;
     }
 
