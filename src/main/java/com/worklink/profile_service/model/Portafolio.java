@@ -12,8 +12,7 @@ public class Portafolio {
     private LocalDate fechaTrabajo;
     private String descripcion;
     private boolean verificado;
-
-    @JsonIgnore
+    
     private Proveedor perfilProveedor;
 
     public Portafolio() {}

@@ -3,19 +3,22 @@ package com.worklink.profile_service.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "reviews")
 public class Review {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
-    
+
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
     private Proveedor proveedor;
     

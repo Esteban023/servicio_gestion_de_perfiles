@@ -3,7 +3,7 @@ PUT http://localhost:8081/api/perfil-servidor/usuario@example.com
 Content-Type: application/json
 
 {
-  "biografia": "Arquitecto de Software Senior con más de 10 años de experiencia en desarrollo de aplicaciones empresariales",
+  "biografia": "Arquitecto de Software Senior con más de 10 años de experiencia",
   "activo": true,
   "verificado": true,
   "horarioDisponibilidad": "Lunes a Viernes 8:00-17:00, Sábados 9:00-13:00",

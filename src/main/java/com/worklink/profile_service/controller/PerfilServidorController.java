@@ -11,6 +11,7 @@ import com.worklink.profile_service.repository.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.worklink.profile_service.services.ServicioPerfilServidor;
 
+
 @RestController
 @RequestMapping("/api/perfil-servidor")
 public class PerfilServidorController {
@@ -40,7 +41,9 @@ public class PerfilServidorController {
 
     @GetMapping("/{email}")
     public ResponseEntity<ProveedorDTO> obtenerPerfilServidor(@PathVariable String email) {
-        Optional<Proveedor> perfilServidor = servicioPerfilServidor.obtenerPerfilServidorPorEmail(email.toLowerCase());
+        Optional<Proveedor> perfilServidor = servicioPerfilServidor.obtenerPerfilServidorPorEmail(
+            email.toLowerCase()
+        );
         
         if (perfilServidor.isPresent()) {
             return ResponseEntity.ok(ProveedorMapper.toDto(perfilServidor.get()));

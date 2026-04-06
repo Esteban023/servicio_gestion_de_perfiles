@@ -16,7 +16,6 @@ public class Proveedor {
     @Column(name = "id")
     private Long id;
     
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "usuario_email", referencedColumnName = "email", nullable = false)
     private Usuario usuario;
