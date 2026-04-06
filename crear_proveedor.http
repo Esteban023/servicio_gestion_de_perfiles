@@ -1,0 +1,20 @@
+### Crear Perfil Proveedor
+POST http://localhost:8081/api/perfil-servidor
+Content-Type: application/json
+
+{
+  "usuario": {
+    "email": "usuario@example.com",
+    "nombre": "Juan",
+    "apellido": "Pérez"
+  },
+  "biografia": "Profesional con experiencia en desarrollo de software y consultoría",
+  "activo": true,
+  "verificado": false,
+  "horarioDisponibilidad": "Lunes a Viernes 9:00-18:00",
+  "ratingPromedio": 0.0,
+  "cedulaUrl": "https://example.com/cedula.pdf",
+  "certificadoSaludUrl": "https://example.com/certificado-salud.pdf",
+  "certificadoAntecedentesUrl": "https://example.com/certificado-antecedentes.pdf",
+  "certificadoInhabilidadesUrl": "https://example.com/certificado-inhabilidades.pdf"
+}

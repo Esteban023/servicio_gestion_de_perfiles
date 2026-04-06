@@ -49,6 +49,17 @@ public class PerfilServidorController {
         }
   
     }
+
+    @PutMapping("/{email}")
+    public ResponseEntity<Proveedor> actualizarPerfilServidor(@PathVariable String email, @RequestBody Proveedor perfilServidorDetails) {
+        Proveedor updatedPerfilServidor = servicioPerfilServidor.actualizarPerfilServidor(email, perfilServidorDetails);
+
+        if (updatedPerfilServidor == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(updatedPerfilServidor);
+    }
     
 
 }

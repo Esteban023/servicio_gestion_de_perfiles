@@ -50,12 +50,16 @@ public class PerfilClienteController {
 
     @PostMapping
     public ResponseEntity<Cliente> createPerfilCliente(@RequestBody Cliente cliente) {
-        String email = cliente.getUsuario().getEmail().toLowerCase(); 
+        if (cliente == null || cliente.getUsuario() == null || cliente.getUsuario().getEmail() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        String email = cliente.getUsuario().getEmail().toLowerCase();
 
         if (repoUsuario.findById(email).isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();  
-        } 
-        
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         try {
             Cliente savedCliente = servicioPerfilCliente.guardarPerfilCliente(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedCliente);

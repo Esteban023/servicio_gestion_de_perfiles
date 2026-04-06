@@ -1,0 +1,11 @@
+### Actualizar Usuario
+PUT http://localhost:8081/api/usuario/usuario@example.com
+Content-Type: application/json
+
+{
+  "nombre": "Juan Carlos",
+  "apellido": "Pérez García",
+  "telefono": "+0987654321",
+  "fotoPerfilUrl": "https://example.com/foto-actualizada.jpg",
+  "fechaNacimiento": "1990-01-15"
+}

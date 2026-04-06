@@ -19,4 +19,26 @@ public class ServicioPerfilServidor {
         return repPerfilServidor.findByUsuarioEmail(email);
     }
 
+    public Proveedor actualizarPerfilServidor(String email, Proveedor perfilActualizado) {
+        Optional<Proveedor> perfilOpt = repPerfilServidor.findByUsuarioEmail(email);
+        
+        if (perfilOpt.isEmpty()) {
+            return null;
+        }
+        
+        Proveedor perfilExistente = perfilOpt.get();
+        perfilExistente.setBiografia(perfilActualizado.getBiografia());
+        perfilExistente.setActivo(perfilActualizado.isActivo());
+        perfilExistente.setVerificado(perfilActualizado.isVerificado());
+        perfilExistente.setHorarioDisponibilidad(perfilActualizado.getHorarioDisponibilidad());
+        perfilExistente.setRatingPromedio(perfilActualizado.getRatingPromedio());
+        perfilExistente.setCedulaUrl(perfilActualizado.getCedulaUrl());
+        perfilExistente.setCertificadoSaludUrl(perfilActualizado.getCertificadoSaludUrl());
+        perfilExistente.setCertificadoAntecedentesUrl(perfilActualizado.getCertificadoAntecedentesUrl());
+        perfilExistente.setCertificadoInhabilidadesUrl(perfilActualizado.getCertificadoInhabilidadesUrl());
+        
+        Proveedor perfilGuardado = repPerfilServidor.save(perfilExistente);
+        return perfilGuardado;
+    }
+
 }

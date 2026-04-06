@@ -42,16 +42,15 @@ public class ServicioPerfilCliente {
         perfilExistente.setRatingPromedio(
             perfilActualizado.getRatingPromedio()
         );
+        perfilExistente.setOcupacion(
+            perfilActualizado.getOcupacion()
+        );
         
-        Cliente perfilGuardado = repositorioPerfilCliente.save(perfilExistente);
-        return perfilGuardado;
+        return repositorioPerfilCliente.save(perfilExistente);
     }
 
     public void eliminarPerfilCliente(String email) {
         repositorioPerfilCliente.deleteByUsuarioEmail(email);
     }
-
-
-
 
 }

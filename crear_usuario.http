@@ -1,0 +1,12 @@
+### Crear Usuario
+POST http://localhost:8081/api/usuario
+Content-Type: application/json
+
+{
+  "email": "usuario@example.com",
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "telefono": "+1234567890",
+  "fotoPerfilUrl": "https://example.com/foto.jpg",
+  "fechaNacimiento": "1990-01-15"
+}
