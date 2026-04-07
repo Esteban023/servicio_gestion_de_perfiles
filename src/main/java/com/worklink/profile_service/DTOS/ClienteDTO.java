@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ClienteDTO {
 
+    @JsonProperty("usuario")
+    private UsuarioDTO usuario;
+
     @JsonProperty("ocupacion")
     String ocupacion;
 
@@ -18,14 +21,23 @@ public class ClienteDTO {
 
     public ClienteDTO() {}
 
-    public ClienteDTO(Boolean activo, Boolean verificado, Double ratingPromedio, String ocupacion) {
+    public ClienteDTO(UsuarioDTO usuario, Boolean activo, Boolean verificado, Double ratingPromedio, String ocupacion) {
+        this.usuario = usuario;
         this.activo = activo;
         this.ocupacion = ocupacion;
         this.verificado = verificado;
         this.ratingPromedio = ratingPromedio;
     }
 
-    public Boolean isActivo() {
+    public UsuarioDTO getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
+    }
+
+    public Boolean getActivo() {
         return activo;
     }
 

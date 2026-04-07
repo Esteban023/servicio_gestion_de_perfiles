@@ -33,6 +33,9 @@ public class ServicioPerfilCliente {
         }
         
         Cliente perfilExistente = perfilOpt.get();
+        perfilExistente.setUsuario(
+            perfilActualizado.getUsuario()
+        );
         perfilExistente.setActivo(
             perfilActualizado.isActivo()
         );

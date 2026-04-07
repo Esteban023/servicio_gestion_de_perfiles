@@ -11,6 +11,9 @@ public class ProveedorMapper {
         }
         
         ProveedorDTO dto = new ProveedorDTO();
+        if (proveedor.getUsuario() != null) {
+            dto.setUsuario(UsuarioMapper.toDto(proveedor.getUsuario()));
+        }
         dto.setVerificado(proveedor.isVerificado());
         dto.setBiografia(proveedor.getBiografia());
         dto.setRatingPromedio(proveedor.getRatingPromedio());
@@ -33,5 +36,5 @@ public class ProveedorMapper {
         return perfilProveedor;
     }
 
-    
+     
 }
