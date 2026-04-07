@@ -2,8 +2,6 @@ package com.worklink.profile_service.model;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class Portafolio {
 
     private Long id;

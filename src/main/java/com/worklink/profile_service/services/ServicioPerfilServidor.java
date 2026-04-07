@@ -27,6 +27,7 @@ public class ServicioPerfilServidor {
         }
         
         Proveedor perfilExistente = perfilOpt.get();
+        perfilExistente.setUsuario(perfilActualizado.getUsuario());
         perfilExistente.setBiografia(perfilActualizado.getBiografia());
         perfilExistente.setActivo(perfilActualizado.isActivo());
         perfilExistente.setVerificado(perfilActualizado.isVerificado());
