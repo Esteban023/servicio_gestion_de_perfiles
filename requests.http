@@ -1,5 +1,5 @@
 ### Crear usuario nuevo
-@host = http://localhost:8080
+@host = http://localhost:8081
 
 POST {{host}}/api/usuario
 Content-Type: application/json
@@ -30,3 +30,4 @@ Content-Type: application/json
   "certificadoAntecedentesUrl": "https://example.com/antecedentes.pdf",
   "certificadoInhabilidadesUrl": "https://example.com/inhabilidades.pdf"
 }
+
