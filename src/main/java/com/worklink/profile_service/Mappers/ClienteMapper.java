@@ -18,4 +18,26 @@ public class ClienteMapper {
         
         return dto;
     }
+
+    public static Cliente toEntity(ClienteDTO clienteDTO) {
+        if (clienteDTO == null) {
+            return null;
+        }
+        
+        Cliente perfilCliente = new Cliente();
+        perfilCliente.setActivo(
+            clienteDTO.isActivo()
+        );
+        perfilCliente.setVerificado(
+            clienteDTO.isVerificado()
+        );
+        perfilCliente.setRatingPromedio(
+            clienteDTO.getRatingPromedio()
+        );
+        perfilCliente.setOcupacion(
+            clienteDTO.getOcupacion()
+        );
+        
+        return perfilCliente;
+    }
 }

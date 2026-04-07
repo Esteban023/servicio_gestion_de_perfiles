@@ -1,0 +1,32 @@
+### Crear usuario nuevo
+@host = http://localhost:8080
+
+POST {{host}}/api/usuario
+Content-Type: application/json
+
+{
+  "email": "juan.perez@example.com",
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "telefono": "3001234567",
+  "fotoPerfilUrl": "https://example.com/foto.jpg",
+  "fechaNacimiento": "1990-05-15"
+}
+
+### Crear proveedor usando el email del usuario
+POST {{host}}/api/perfil-servidor
+Content-Type: application/json
+
+{
+  "usuario": {
+    "email": "juan.perez@example.com"
+  },
+  "biografia": "Proveedor de servicios profesionales con experiencia.",
+  "verificado": false,
+  "activo": true,
+  "horarioDisponibilidad": "Lun a Vie 8:00-18:00",
+  "cedulaUrl": "https://example.com/cedula.pdf",
+  "certificadoSaludUrl": "https://example.com/salud.pdf",
+  "certificadoAntecedentesUrl": "https://example.com/antecedentes.pdf",
+  "certificadoInhabilidadesUrl": "https://example.com/inhabilidades.pdf"
+}

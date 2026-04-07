@@ -25,7 +25,7 @@ public class ClienteDTO {
         this.ratingPromedio = ratingPromedio;
     }
 
-    public Boolean getActivo() {
+    public Boolean isActivo() {
         return activo;
     }
 
@@ -33,7 +33,7 @@ public class ClienteDTO {
         this.activo = activo;
     }
 
-    public Boolean getVerificado() {
+    public Boolean isVerificado() {
         return verificado;
     }
 
