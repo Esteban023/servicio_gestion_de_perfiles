@@ -7,6 +7,9 @@ public class ProveedorDTO {
     @JsonProperty("usuario")
     private UsuarioDTO usuario;
 
+    @JsonProperty("id")
+    Long id;
+
     @JsonProperty("verificado")
     boolean verificado;
 
@@ -16,16 +19,17 @@ public class ProveedorDTO {
     @JsonProperty("activo")
     boolean activo;
 
-    @JsonProperty("horario_disponibilidad")
+    @JsonProperty("horarioDisponibilidad")
     String horarioDisponibilidad;
 
-    @JsonProperty("rating_promedio")
+    @JsonProperty("ratingPromedio")
     Double ratingPromedio;
 
     public ProveedorDTO() {}
 
-    public ProveedorDTO(UsuarioDTO usuario, Boolean verificado, String biografia, Boolean activo, String horarioDisponibilidad, Double ratingPromedio) {
-        this.usuario = usuario;        
+    public ProveedorDTO(UsuarioDTO usuario, Long id, Boolean verificado, String biografia, Boolean activo, String horarioDisponibilidad, Double ratingPromedio) {
+        this.usuario = usuario;   
+        this.id = id;     
         this.verificado = verificado;
         this.biografia = biografia;
         this.activo = activo;
@@ -39,6 +43,14 @@ public class ProveedorDTO {
 
     public void setUsuario(UsuarioDTO usuario) {
         this.usuario = usuario;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Boolean getVerificado() {
