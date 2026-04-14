@@ -45,7 +45,7 @@ public class ClienteDTO {
         this.activo = activo;
     }
 
-    public Boolean getVerificado() {
+    public Boolean isVerificado() {
         return verificado;
     }
 
