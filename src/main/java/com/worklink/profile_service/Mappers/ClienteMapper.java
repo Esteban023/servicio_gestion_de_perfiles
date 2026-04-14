@@ -29,7 +29,7 @@ public class ClienteMapper {
         
         Cliente perfilCliente = new Cliente();
         perfilCliente.setActivo(
-            clienteDTO.isActivo()
+            clienteDTO.getActivo()
         );
         perfilCliente.setVerificado(
             clienteDTO.isVerificado()

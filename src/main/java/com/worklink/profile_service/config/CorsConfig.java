@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/main/java/com/worklink/Config/CorsConfig.java
-package com.worklink.Config;
-========
 package com.worklink.profile_service.config;
->>>>>>>> 36c4bb0433cc5d187071dba3b6fda2170885531d:src/main/java/com/worklink/profile_service/config/CorsConfig.java
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
