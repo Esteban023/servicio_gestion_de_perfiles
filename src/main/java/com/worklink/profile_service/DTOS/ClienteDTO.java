@@ -37,7 +37,7 @@ public class ClienteDTO {
         this.usuario = usuario;
     }
 
-    public Boolean getActivo() {
+    public Boolean isActivo() {
         return activo;
     }
 

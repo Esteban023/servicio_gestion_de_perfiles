@@ -28,6 +28,7 @@ public class ClienteMapper {
         }
         
         Cliente perfilCliente = new Cliente();
+        
         perfilCliente.setActivo(
             clienteDTO.isActivo()
         );

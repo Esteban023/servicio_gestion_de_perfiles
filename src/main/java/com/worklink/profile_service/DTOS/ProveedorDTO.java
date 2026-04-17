@@ -16,10 +16,10 @@ public class ProveedorDTO {
     @JsonProperty("activo")
     boolean activo;
 
-    @JsonProperty("horario_disponibilidad")
+    @JsonProperty("horarioDisponibilidad")
     String horarioDisponibilidad;
 
-    @JsonProperty("rating_promedio")
+    @JsonProperty("ratingPromedio")
     Double ratingPromedio;
 
     public ProveedorDTO() {}
