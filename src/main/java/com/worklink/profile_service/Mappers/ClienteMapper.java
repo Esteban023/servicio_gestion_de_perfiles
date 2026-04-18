@@ -14,6 +14,7 @@ public class ClienteMapper {
         if (perfilCliente.getUsuario() != null){
             dto.setUsuario(UsuarioMapper.toDto(perfilCliente.getUsuario()));
         }
+        dto.setId(perfilCliente.getId());
         dto.setActivo(perfilCliente.isActivo());
         dto.setVerificado(perfilCliente.isVerificado());
         dto.setRatingPromedio(perfilCliente.getRatingPromedio());

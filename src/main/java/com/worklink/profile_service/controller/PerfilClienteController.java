@@ -34,7 +34,7 @@ public class PerfilClienteController {
         return servicioPerfilCliente.obtenerTodosLosPerfilesClientes();
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/e/{email}")
     public ResponseEntity<ClienteDTO> getPerfilClienteByEmail(@PathVariable String email) {
         Optional<Cliente> perfilClienteOpt = servicioPerfilCliente.obtenerPerfilCliente(email.toLowerCase());
 
@@ -47,6 +47,16 @@ public class PerfilClienteController {
         }
         
     }
+
+    @GetMapping("/i/{id}")
+    public ResponseEntity<?> getClienteById(@PathVariable Long id) {
+        Optional<Cliente> optional = servicioPerfilCliente.obtenerPerfilClientePorId(id);
+        if(optional.isPresent()){
+            return ResponseEntity.ok(optional.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+    
 
     @PostMapping
     public ResponseEntity<Cliente> createPerfilCliente(@RequestBody Cliente cliente) {

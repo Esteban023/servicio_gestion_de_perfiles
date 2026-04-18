@@ -56,4 +56,8 @@ public class ServicioPerfilCliente {
         repositorioPerfilCliente.deleteByUsuarioEmail(email);
     }
 
+    public Optional<Cliente> obtenerPerfilClientePorId(Long id) {
+        return repositorioPerfilCliente.findById(id);
+    }
+
 }

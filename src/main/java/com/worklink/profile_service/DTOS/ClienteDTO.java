@@ -7,6 +7,9 @@ public class ClienteDTO {
     @JsonProperty("usuario")
     private UsuarioDTO usuario;
 
+    @JsonProperty("id")
+    Long id;
+
     @JsonProperty("ocupacion")
     String ocupacion;
 
@@ -21,7 +24,7 @@ public class ClienteDTO {
 
     public ClienteDTO() {}
 
-    public ClienteDTO(UsuarioDTO usuario, Boolean activo, Boolean verificado, Double ratingPromedio, String ocupacion) {
+    public ClienteDTO(UsuarioDTO usuario, Long id, Boolean activo, Boolean verificado, Double ratingPromedio, String ocupacion) {
         this.usuario = usuario;
         this.activo = activo;
         this.ocupacion = ocupacion;
@@ -35,6 +38,14 @@ public class ClienteDTO {
 
     public void setUsuario(UsuarioDTO usuario) {
         this.usuario = usuario;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Boolean isActivo() {

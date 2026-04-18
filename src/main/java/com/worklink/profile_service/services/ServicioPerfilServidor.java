@@ -42,4 +42,8 @@ public class ServicioPerfilServidor {
         return perfilGuardado;
     }
 
+    public Optional<Proveedor> obtenerPerfilServidorPorId(Long id) {
+        return repPerfilServidor.findById(id);
+    }
+
 }

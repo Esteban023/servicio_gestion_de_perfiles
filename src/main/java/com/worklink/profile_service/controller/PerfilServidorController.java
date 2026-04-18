@@ -10,6 +10,7 @@ import com.worklink.profile_service.model.Proveedor;
 import com.worklink.profile_service.repository.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.worklink.profile_service.services.ServicioPerfilServidor;
+import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
@@ -39,7 +40,7 @@ public class PerfilServidorController {
       
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/e/{email}")
     public ResponseEntity<ProveedorDTO> obtenerPerfilServidor(@PathVariable String email) {
         Optional<Proveedor> perfilServidor = servicioPerfilServidor.obtenerPerfilServidorPorEmail(
             email.toLowerCase()
@@ -52,6 +53,16 @@ public class PerfilServidorController {
         }
   
     }
+
+    @GetMapping("/i/{id}")
+    public ResponseEntity<?> getProveedorById(@PathVariable Long id) {
+        Optional<Proveedor> optional = servicioPerfilServidor.obtenerPerfilServidorPorId(id);
+        if(optional.isPresent()){
+            return ResponseEntity.ok(optional.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+    
 
     @PutMapping("/{email}")
     public ResponseEntity<Proveedor> actualizarPerfilServidor(@PathVariable String email, @RequestBody Proveedor perfilServidorDetails) {
