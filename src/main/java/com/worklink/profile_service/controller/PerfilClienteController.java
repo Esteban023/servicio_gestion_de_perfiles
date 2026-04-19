@@ -34,7 +34,7 @@ public class PerfilClienteController {
         return servicioPerfilCliente.obtenerTodosLosPerfilesClientes();
     }
 
-    @GetMapping("/e/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<ClienteDTO> getPerfilClienteByEmail(@PathVariable String email) {
         Optional<Cliente> perfilClienteOpt = servicioPerfilCliente.obtenerPerfilCliente(email.toLowerCase());
 
