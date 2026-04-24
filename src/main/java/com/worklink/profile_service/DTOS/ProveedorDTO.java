@@ -85,10 +85,4 @@ public class ProveedorDTO {
         this.horarioDisponibilidad = horarioDisponibilidad;
     }
 
-
-
-    
-
-
-
 }
