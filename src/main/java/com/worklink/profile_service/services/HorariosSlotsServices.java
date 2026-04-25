@@ -116,7 +116,7 @@ public class HorariosSlotsServices {
                         }
                         ids = ids.concat(slot.getId() +",");
                     }else{
-                        i = i - endHorario;
+                        i = i - endHorario + j;
                         break;
                     }
 
