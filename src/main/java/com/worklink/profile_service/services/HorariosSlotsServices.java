@@ -109,17 +109,16 @@ public class HorariosSlotsServices {
             int endHorario = i + incremento -1;
             for (int j = i; j <= (endHorario); j++){
                 HorariosSlots slot = slots.get(j);
-                if(j != endHorario){
-                    if(slot.getHoraFin().equals(slots.get(j+1).getHoraInicio())){
-                        if(j == i){
+                if(j == i){
                             horario.setHoraInicio(slot.getHoraInicio());
                         }
+                if(j != endHorario){
+                    if(slot.getHoraFin().equals(slots.get(j+1).getHoraInicio())){                        
                         ids = ids.concat(slot.getId() +",");
                     }else{
                         i = i - endHorario + j;
                         break;
                     }
-
                 }else{
                     ids = ids.concat(slot.getId().toString());
                     horario.setHoraFin(slot.getHoraFin());
