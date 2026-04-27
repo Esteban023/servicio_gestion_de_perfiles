@@ -6,6 +6,7 @@ public class HorasDispDto {
     LocalTime horaInicio;
     LocalTime horaFin;
     String idsSlots;
+    String codigoReserva;
 
 
     public LocalTime getHoraInicio() {
@@ -32,5 +33,12 @@ public class HorasDispDto {
         this.idsSlots = idsSlots;
     }
 
+    public String getCodigoReserva() {
+        return codigoReserva;
+    }
+
+    public void setCodigoReserva(String codigoReserva) {
+        this.codigoReserva = codigoReserva;
+    }
 
 }

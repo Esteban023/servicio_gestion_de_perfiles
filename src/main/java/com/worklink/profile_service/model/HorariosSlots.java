@@ -16,6 +16,7 @@ public class HorariosSlots {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private String estado;
+    private String codigoReserva;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_proveedor", nullable = false)
@@ -31,6 +32,7 @@ public class HorariosSlots {
         this.proveedor = proveedor;
         horaFin = horaInicio.plusMinutes(30);
         estado = "Disponible";
+        this.codigoReserva = null;
     }
 
     public Long getId() {
@@ -76,5 +78,13 @@ public class HorariosSlots {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public String getCodigoReserva() {
+        return codigoReserva;
+    }
+
+    public void setCodigoReserva(String codigoReserva) {
+        this.codigoReserva = codigoReserva;
     }
 }

@@ -39,5 +39,6 @@ public interface HorariosSlotsRepository extends JpaRepository<HorariosSlots, Lo
 
     boolean existsByProveedor(Proveedor proveedor);
 
+    List<HorariosSlots> findByCodigoReserva(String codigoReserva);
 
 }

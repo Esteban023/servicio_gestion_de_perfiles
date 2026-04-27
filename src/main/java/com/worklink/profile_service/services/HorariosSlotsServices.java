@@ -123,6 +123,7 @@ public class HorariosSlotsServices {
                     ids = ids.concat(slot.getId().toString());
                     horario.setHoraFin(slot.getHoraFin());
                     horario.setIdsSlots(ids);
+                    horario.setCodigoReserva(slots.get(i).getCodigoReserva());
                     //aca añadir a la lista
                     lista.add(horario);
                 }
@@ -130,4 +131,26 @@ public class HorariosSlotsServices {
         }
         return lista;
     }
+
+    @Transactional
+    public List<HorariosSlots> reservarSlots(ReservasSlotsRequest dto) {
+        List<HorariosSlots> slots = repository.findAllById(dto.getIdsSlots());
+        slots.forEach(slot -> {
+            slot.setEstado("Reservado");
+            slot.setCodigoReserva(dto.getCodigoReserva());
+        });
+        return repository.saveAll(slots);
+    }
+
+    @Transactional
+    public void liberarSlotsReserva(String codigoReserva) {
+       List<HorariosSlots> slots = repository.findByCodigoReserva(codigoReserva);
+       if(slots.isEmpty()) return;
+       slots.forEach(slot -> {
+           slot.setEstado("Disponible");
+           slot.setCodigoReserva(null);
+       });
+       repository.saveAll(slots);
+    }
+
 }
