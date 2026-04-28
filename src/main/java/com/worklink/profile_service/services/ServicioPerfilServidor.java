@@ -1,5 +1,6 @@
 package com.worklink.profile_service.services;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.worklink.profile_service.model.Proveedor;
@@ -44,6 +45,10 @@ public class ServicioPerfilServidor {
 
     public Optional<Proveedor> obtenerPerfilServidorPorId(Long id) {
         return repPerfilServidor.findById(id);
+    }
+
+    public List<Proveedor> obtenerTodos(){
+        return repPerfilServidor.findAll();
     }
 
 }

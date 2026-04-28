@@ -1,5 +1,6 @@
 package com.worklink.profile_service.controller;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,6 +75,10 @@ public class PerfilServidorController {
 
         return ResponseEntity.ok(updatedPerfilServidor);
     }
-    
+    @GetMapping("/all")
+    public ResponseEntity<List<Proveedor>> obtenerTodos(){
+        List<Proveedor> proveedors = servicioPerfilServidor.obtenerTodos();
+        return ResponseEntity.ok(proveedors);
+    }
 
 }
