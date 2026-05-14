@@ -159,24 +159,24 @@ public class Proveedor {
         this.reviews = reviews;
     }
     
-    // Método para agregar review
-    public void addReview(Review review) {
-        reviews.add(review);
-        review.setProveedor(this);
-    }
-    
-    // Método para actualizar rating promedio
-    public void actualizarRatingPromedio() {
-        if (reviews.isEmpty()) {
-            this.ratingPromedio = 0.0;
-            return;
-        }
-        
-        double promedio = reviews.stream()
-            .mapToInt(Review::getCalificacion)
-            .average()
-            .orElse(0.0);
-        
-        this.ratingPromedio = promedio;
-    }
+//    // Método para agregar review
+//    public void addReview(Review review) {
+//        reviews.add(review);
+//        review.setProveedor(this);
+//    }
+//
+//    // Método para actualizar rating promedio
+//    public void actualizarRatingPromedio() {
+//        if (reviews.isEmpty()) {
+//            this.ratingPromedio = 0.0;
+//            return;
+//        }
+//
+//        double promedio = reviews.stream()
+//            .mapToInt(Review::getCalificacion)
+//            .average()
+//            .orElse(0.0);
+//
+//        this.ratingPromedio = promedio;
+//    }
 }

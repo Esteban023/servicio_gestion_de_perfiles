@@ -13,17 +13,17 @@ public class Review {
     private Long id;
     
     @ManyToOne
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
     @ManyToOne
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
     private Proveedor proveedor;
     
     @Column(name = "calificacion", nullable = false)
-    private Integer calificacion;
+    private Double calificacion;
     
     @Column(name = "comentario", length = 1000)
     private String comentario;
@@ -35,7 +35,7 @@ public class Review {
         this.fechaCreacion = LocalDateTime.now();
     }
     
-    public Review(Integer calificacion, String comentario) {
+    public Review(Double calificacion, String comentario) {
         this();
         this.calificacion = calificacion;
         this.comentario = comentario;
@@ -66,11 +66,11 @@ public class Review {
         this.proveedor = proveedor;
     }
     
-    public Integer getCalificacion() {
+    public Double getCalificacion() {
         return calificacion;
     }
     
-    public void setCalificacion(Integer calificacion) {
+    public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
     
