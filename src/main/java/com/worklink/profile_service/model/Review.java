@@ -21,6 +21,8 @@ public class Review {
 //    @JsonIgnore
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
     private Proveedor proveedor;
+
+    private Long serviceId;
     
     @Column(name = "calificacion", nullable = false)
     private Double calificacion;
@@ -88,5 +90,13 @@ public class Review {
     
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
     }
 }

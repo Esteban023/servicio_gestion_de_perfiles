@@ -41,6 +41,12 @@ public class ReviewController {
         if(reviews.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(reviews);
     }
+    @GetMapping("obtenerPorService/{idService}")
+    public ResponseEntity<?> obtenerPorServiceId(@PathVariable Long idService){
+        List<Review> reviews = services.obtenerPorServiceId(idService);
+        if(reviews.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(reviews);
+    }
 
     @PostMapping("/guardar")
     public ResponseEntity<?> guardarReview(@RequestBody ReviewDTO dto){

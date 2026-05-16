@@ -36,6 +36,10 @@ public class ReviewServices {
         return repository.findByProveedorId(idProveedor);
     }
 
+    public List<Review> obtenerPorServiceId(Long serviceId){
+        return repository.findByServiceId(serviceId);
+    }
+
     public Review crearReview(ReviewDTO dto){
         Review review = null;
         Optional<Proveedor> proveedorOpt = servicioProveedor.obtenerPerfilServidorPorId(dto.getIdProveedor());
@@ -46,6 +50,7 @@ public class ReviewServices {
         review.setCalificacion(dto.getCalificacion());
         review.setCliente(clienteOpt.get());
         review.setProveedor(proveedorOpt.get());
+        review.setServiceId(dto.getIdService());
 
         return repository.save(review);
     }

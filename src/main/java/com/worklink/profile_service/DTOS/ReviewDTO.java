@@ -5,6 +5,7 @@ public class ReviewDTO {
     String comentario;
     Long idCliente;
     Long idProveedor;
+    Long idService;
 
     public Double getCalificacion() {
         return calificacion;
@@ -36,5 +37,13 @@ public class ReviewDTO {
 
     public void setIdProveedor(Long idProveedor) {
         this.idProveedor = idProveedor;
+    }
+
+    public Long getIdService() {
+        return idService;
+    }
+
+    public void setIdService(Long idService) {
+        this.idService = idService;
     }
 }
