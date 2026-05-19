@@ -77,7 +77,6 @@ public class PerfilServidorController {
 
         return ResponseEntity.ok(updatedPerfilServidor);
     }
-
     @GetMapping("/all")
     public ResponseEntity<List<Proveedor>> obtenerTodos(){
         List<Proveedor> proveedors = servicioPerfilServidor.obtenerTodos();

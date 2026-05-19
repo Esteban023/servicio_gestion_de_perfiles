@@ -95,4 +95,12 @@ public class Ubicacion {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
 }

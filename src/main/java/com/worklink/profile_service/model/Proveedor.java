@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "perfiles_proveedor")
 public class Proveedor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,7 +25,7 @@ public class Proveedor {
 
     @Column(name = "biografia", length = 100)
     private String biografia;
-
+    
     @Column(name = "verificado", nullable = false)
     private boolean verificado;
 
@@ -31,22 +34,6 @@ public class Proveedor {
 
     @Column(name = "horario_disponibilidad", length = 500)
     private String horarioDisponibilidad;
-
-    @Column(name = "rating_promedio")
-    private Double ratingPromedio;
-
-    // URLs de documentos
-    @Column(name = "cedula_url")
-    private String cedulaUrl;
-
-    @Column(name = "certificado_salud_url")
-    private String certificadoSaludUrl;
-
-    @Column(name = "certificado_antecedentes_url")
-    private String certificadoAntecedentesUrl;
-
-    @Column(name = "certificado_inhabilidades_url")
-    private String certificadoInhabilidadesUrl;
 
     // ─── Datos bancarios colombianos ───────────────
     @Column(name = "cuenta_bancaria_titular")
@@ -84,7 +71,24 @@ public class Proveedor {
         this.cuentaVinculada = false;
         this.cuentaVinculadaAt = null;
     }
-
+    
+    @Column(name = "rating_promedio")
+    private Double ratingPromedio;
+    
+    // URLs de documentos
+    @Column(name = "cedula_url")
+    private String cedulaUrl;
+    
+    @Column(name = "certificado_salud_url")
+    private String certificadoSaludUrl;
+    
+    @Column(name = "certificado_antecedentes_url")
+    private String certificadoAntecedentesUrl;
+    
+    @Column(name = "certificado_inhabilidades_url")
+    private String certificadoInhabilidadesUrl;
+    
+    
     public Proveedor(Usuario usuario) {
         this();
         this.usuario = usuario;
@@ -168,4 +172,25 @@ public class Proveedor {
     public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
+    
+//    // Método para agregar review
+//    public void addReview(Review review) {
+//        reviews.add(review);
+//        review.setProveedor(this);
+//    }
+//
+//    // Método para actualizar rating promedio
+//    public void actualizarRatingPromedio() {
+//        if (reviews.isEmpty()) {
+//            this.ratingPromedio = 0.0;
+//            return;
+//        }
+//
+//        double promedio = reviews.stream()
+//            .mapToInt(Review::getCalificacion)
+//            .average()
+//            .orElse(0.0);
+//
+//        this.ratingPromedio = promedio;
+//    }
 }
