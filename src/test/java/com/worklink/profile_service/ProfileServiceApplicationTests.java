@@ -2,10 +2,10 @@ package com.worklink.profile_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.junit.jupiter.api.Disabled;
+import org.springframework.test.context.ActiveProfiles;
 
-@Disabled
 @SpringBootTest
+@ActiveProfiles("test")
 class ProfileServiceApplicationTests {
 	
 	@Test
