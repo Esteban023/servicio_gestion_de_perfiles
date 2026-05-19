@@ -33,6 +33,7 @@ class ServicioPerfilServidorTest {
     private RepositorioUsuario usuarioRepository;
 
     private Usuario usuario;
+    private Proveedor proveedor;
 
     @BeforeEach
     void setUp() {
@@ -44,28 +45,43 @@ class ServicioPerfilServidorTest {
         usuario.setTelefono("123456");
 
         usuarioRepository.save(usuario);
-    }
 
-    @Test
-    void guardarPerfilServidor() {
-
-        Proveedor proveedor = new Proveedor();
+        proveedor = new Proveedor();
         proveedor.setUsuario(usuario);
         proveedor.setBiografia("Bio test");
         proveedor.setActivo(true);
         proveedor.setVerificado(false);
+        proveedor.setHorarioDisponibilidad("8AM-5PM");
+        proveedor.setRatingPromedio(4.8);
+    }
 
+    @Test
+    void guardarPerfilServidor() {
+        
         Proveedor guardado = servicio.guardarPerfilServidor(proveedor);
 
         assertNotNull(guardado);
         assertNotNull(guardado.getId());
+
+        Optional<Proveedor> desdeBd =
+                repositorio.findById(guardado.getId());
+
+        assertTrue(desdeBd.isPresent());
+
+        Proveedor proveedorBd = desdeBd.get();
+
+        assertEquals("Bio test", proveedorBd.getBiografia());
+        assertTrue(proveedorBd.isActivo());
+        assertFalse(proveedorBd.isVerificado());
+        assertEquals("8AM-5PM", proveedorBd.getHorarioDisponibilidad());
+        assertEquals(4.8, proveedorBd.getRatingPromedio());
+
+        assertNotNull(proveedorBd.getUsuario());
+        assertEquals(usuario.getEmail(), proveedorBd.getUsuario().getEmail());
     }
 
     @Test
     void obtenerPerfilPorId() {
-
-        Proveedor proveedor = new Proveedor();
-        proveedor.setUsuario(usuario);
 
         Proveedor guardado = repositorio.save(proveedor);
 
@@ -73,39 +89,53 @@ class ServicioPerfilServidorTest {
                 servicio.obtenerPerfilServidorPorId(guardado.getId());
 
         assertTrue(resultado.isPresent());
+        assertEquals(guardado.getId(), resultado.get().getId());
+        assertEquals(usuario.getEmail(), resultado.get().getUsuario().getEmail());        
+        assertEquals("Bio test", resultado.get().getBiografia());
+    }
+
+    @Test
+    void obtenerPerfilPorId_noExiste() {
+
+        Optional<Proveedor> resultado =
+                servicio.obtenerPerfilServidorPorId(999L);
+
+        assertTrue(resultado.isEmpty());
     }
 
     @Test
     void obtenerTodos() {
-
-        Proveedor proveedor = new Proveedor();
-        proveedor.setUsuario(usuario);
 
         repositorio.save(proveedor);
 
         List<Proveedor> lista = servicio.obtenerTodos();
 
         assertFalse(lista.isEmpty());
+        assertEquals(1, lista.size());
+
+        Proveedor obtenido = lista.get(0);
+
+        assertEquals(usuario.getEmail(), obtenido.getUsuario().getEmail());
+        assertEquals("Bio test", obtenido.getBiografia());
     }
 
     @Test
     void actualizarPerfilServidor_existente() {
 
-        Proveedor proveedor = new Proveedor();
-        proveedor.setUsuario(usuario);
-
-        repositorio.save(proveedor);
-
-        Proveedor actualizado = new Proveedor();
-        actualizado.setUsuario(usuario);
+        Proveedor actualizado = repositorio.save(proveedor);
         actualizado.setBiografia("Nueva bio");
-        actualizado.setActivo(true);
+        actualizado.setHorarioDisponibilidad("Lunes a viernes");
 
         Proveedor resultado =
                 servicio.actualizarPerfilServidor("test@mail.com", actualizado);
 
         assertNotNull(resultado);
         assertEquals("Nueva bio", resultado.getBiografia());
+        assertEquals(actualizado.getId(), resultado.getId());
+        assertEquals("Nueva bio", resultado.getBiografia());
+        assertTrue(resultado.isActivo());
+        assertEquals("Lunes a viernes", resultado.getHorarioDisponibilidad());
+        assertEquals(1, repositorio.count());
     }
 
     @Test
