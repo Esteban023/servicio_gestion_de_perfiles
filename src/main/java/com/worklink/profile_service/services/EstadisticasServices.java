@@ -27,7 +27,7 @@ public class EstadisticasServices {
 
     public EstadisticaReservaResponse generarEstadisticasReservas(Long proveedorId){
         List<ReservaDTO> reservas = consultarReservas(proveedorId);
-        if(reservas.isEmpty()) return null;
+        if(reservas.isEmpty()) return new EstadisticaReservaResponse(null,null, 0, 0.0);
         EstadisticaReservaResponse estadistica = procesarDatosReservas(reservas);
         return estadistica;
     }
