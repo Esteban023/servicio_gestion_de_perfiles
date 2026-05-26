@@ -3,6 +3,7 @@ package com.worklink.profile_service.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.worklink.profile_service.model.Ubicacion;
 
 import java.util.ArrayList;
 import jakarta.persistence.*;
@@ -31,6 +32,9 @@ public class Cliente {
 
     @Column(name = "verificado", nullable = false)
     private boolean verificado;
+
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Ubicacion ubicacion;
     
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -110,6 +114,14 @@ public class Cliente {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public Ubicacion getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     // Método para agregar review

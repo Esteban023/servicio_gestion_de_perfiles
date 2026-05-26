@@ -1,5 +1,6 @@
 package com.worklink.profile_service.repository;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 import com.worklink.profile_service.model.Proveedor;
@@ -16,6 +17,27 @@ public interface RepositorioPerfilServidor extends JpaRepository<Proveedor, Long
         WHERE perfil.usuario.email = :email
     """)
     Optional<Proveedor> findByUsuarioEmail(@Param("email") String email);
+
+    @Query(
+        """
+        SELECT p
+        FROM Proveedor p
+        JOIN p.ubicacion u
+        WHERE (
+            (u.latitud  - :latitudCliente)  * (u.latitud  - :latitudCliente) +
+            (u.longitud - :longitudCliente) * (u.longitud - :longitudCliente)
+        ) <= :radioGrados * :radioGrados
+        ORDER BY (
+            (u.latitud  - :latitudCliente)  * (u.latitud  - :latitudCliente) +
+            (u.longitud - :longitudCliente) * (u.longitud - :longitudCliente)
+        ) ASC
+        """
+    )
+    List<Proveedor> findProveedoresCercanos(
+        @Param("latitudCliente")  Double latitudCliente,
+        @Param("longitudCliente") Double longitudCliente,
+        @Param("radioGrados")     Double radioGrados
+    );
 
     
 }

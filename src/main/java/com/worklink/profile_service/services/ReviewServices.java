@@ -52,6 +52,27 @@ public class ReviewServices {
         review.setProveedor(proveedorOpt.get());
         review.setServiceId(dto.getIdService());
 
-        return repository.save(review);
+        review = repository.save(review);
+        actualizarPromedioProveedor(review.getProveedor().getId());
+        return review;
+    }
+
+    private void actualizarPromedioProveedor(Long proveedorId){
+
+        Optional<Proveedor> proveedorOpt =
+                servicioProveedor.obtenerPerfilServidorPorId(proveedorId);
+
+        if(proveedorOpt.isEmpty()) return;
+
+        Double promedio =
+                repository.obtenerPromedioProveedor(proveedorId);
+
+        Proveedor proveedor = proveedorOpt.get();
+
+        proveedor.setRatingPromedio(
+                promedio != null ? promedio : 0.0
+        );
+
+        servicioProveedor.guardarPerfilServidor(proveedor);
     }
 }

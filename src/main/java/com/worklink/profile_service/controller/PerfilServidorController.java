@@ -5,6 +5,9 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+
+import com.worklink.profile_service.DTOS.CuentaBancariaRequest;
 import com.worklink.profile_service.DTOS.ProveedorDTO;
 import com.worklink.profile_service.Mappers.ProveedorMapper;
 import com.worklink.profile_service.model.Proveedor;
@@ -62,8 +65,7 @@ public class PerfilServidorController {
             return ResponseEntity.ok(optional.get());
         }
         return ResponseEntity.notFound().build();
-    }
-    
+    } 
 
     @PutMapping("/{email}")
     public ResponseEntity<Proveedor> actualizarPerfilServidor(@PathVariable String email, @RequestBody Proveedor perfilServidorDetails) {
@@ -80,5 +82,35 @@ public class PerfilServidorController {
         List<Proveedor> proveedors = servicioPerfilServidor.obtenerTodos();
         return ResponseEntity.ok(proveedors);
     }
+
+    @GetMapping("/perfil/proveedor/{proveedorID}/cuenta-bancaria")
+    public ResponseEntity<Proveedor> obtenerCuentaBancaria(@PathVariable Long proveedorID) {
+        Proveedor proveedor = servicioPerfilServidor.obtenerCuentaBancaria(proveedorID);
+        return ResponseEntity.ok(proveedor);
+    }
+
+    @PutMapping("/perfil/proveedor/{proveedorID}/cuenta-bancaria")
+    public ResponseEntity<Void> guardarCuentaBancaria(
+        @PathVariable Long proveedorID,
+        @Valid @RequestBody CuentaBancariaRequest request
+    ) {
+        servicioPerfilServidor.guardarCuentaBancaria(proveedorID, request);
+        return ResponseEntity.ok().build();
+    }
+    
+    /*
+    @GetMapping("/cercanos")
+    public ResponseEntity<List<Proveedor>> obtenerProveedoresCercanos(
+        @RequestParam Long clienteId,
+        @RequestParam Double radioKm
+    ) {
+        List<Proveedor> proveedoresCercanos = servicioPerfilServidor.obtenerProveedoresPorCercania(clienteId, radioKm);
+
+        if (proveedoresCercanos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(proveedoresCercanos);
+    }
+    */
 
 }
