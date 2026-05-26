@@ -86,7 +86,7 @@ public class HorariosSlotsServices {
     public List<HorariosSlots> generarSlots(List<Integer> listaDias, LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin, Proveedor proveedor){
         List<DayOfWeek> listDias = listaDias.stream().map(DayOfWeek::of).toList();
         List<HorariosSlots> slots = new ArrayList<>();
-        horaFin = horaFin.plusHours(1);
+        //horaFin = horaFin.plusHours(1);
         for (LocalDate fecha = fechaInicio; !fecha.isAfter(fechaFin); fecha = fecha.plusDays(1)){
             if (listDias.contains(fecha.getDayOfWeek())){
                 for (LocalTime hora = horaInicio; hora.isBefore(horaFin); hora = hora.plusMinutes(30)){
