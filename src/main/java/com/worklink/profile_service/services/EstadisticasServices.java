@@ -38,7 +38,7 @@ public class EstadisticasServices {
         HashMap<String, Double> porServicio = new HashMap<>();
         HashMap<String, Double> porEstado = new HashMap<>();
         for (ReservaDTO reserva : reservas){
-            if(reserva.getEstadoReserva().equals("COMPLETADA"));{
+            if(reserva.getEstadoReserva().equals("COMPLETADA")){
                 totalGenerado += reserva.getPrecio().doubleValue();
             }
             String titleService = reserva.getTituloServicio();
