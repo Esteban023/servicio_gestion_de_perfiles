@@ -99,18 +99,36 @@ class EstadisticasServicesTest {
         );
     }
 
-    @Test
-    void generarEstadisticasReservas_listaVacia() {
+@Test
+void generarEstadisticasReservas_listaVacia() {
 
-        doReturn(List.of())
-                .when(servicio)
-                .consultarReservas(1L);
+    doReturn(List.of())
+            .when(servicio)
+            .consultarReservas(1L);
 
-        EstadisticaReservaResponse resultado =
-                servicio.generarEstadisticasReservas(1L);
+    EstadisticaReservaResponse resultado =
+            servicio.generarEstadisticasReservas(1L);
 
-        assertNull(resultado);
-    }
+    assertNotNull(resultado);
+
+    assertEquals(
+            0,
+            resultado.getTotalReservas()
+    );
+
+    assertEquals(
+            0.0,
+            resultado.getTotalDineroGenerado()
+    );
+
+    assertNull(
+            resultado.getPorcentajePorServicio()
+    );
+
+    assertNull(
+            resultado.getPorcentajePorEstado()
+    );
+}
 
     @Test
     void consultarReservas_mock() {
