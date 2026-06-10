@@ -5,3 +5,8 @@ target/
 *.iws
 *.iml
 *.ipr
+
+### Secretos / variables de entorno ###
+.env
+.env.local
+.env.*.local

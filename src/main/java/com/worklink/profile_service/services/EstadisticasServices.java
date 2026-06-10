@@ -2,6 +2,7 @@ package com.worklink.profile_service.services;
 
 import com.worklink.profile_service.DTOS.EstadisticaReservaResponse;
 import com.worklink.profile_service.DTOS.ReservaDTO;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -12,8 +13,9 @@ import java.util.List;
 public class EstadisticasServices {
     private final WebClient webClient;
 
-    public EstadisticasServices(WebClient.Builder builder) {
-        this.webClient = builder.baseUrl("http://localhost:8083/api/reservas/").build();
+    public EstadisticasServices(WebClient.Builder builder,
+                                @Value("${services.reservas.url}") String reservasUrl) {
+        this.webClient = builder.baseUrl(reservasUrl).build();
     }
 
     public List<ReservaDTO> consultarReservas(Long idProveedor){
@@ -27,36 +29,29 @@ public class EstadisticasServices {
 
     public EstadisticaReservaResponse generarEstadisticasReservas(Long proveedorId) {
         List<ReservaDTO> reservas = consultarReservas(proveedorId);
-        if(reservas.isEmpty()) return null;
-        EstadisticaReservaResponse estadistica = procesarDatosReservas(reservas);
-        return estadistica;
+        if (reservas.isEmpty()) return null;
+        return procesarDatosReservas(reservas);
     }
 
     private EstadisticaReservaResponse procesarDatosReservas(List<ReservaDTO> reservas) {
         double totalGenerado = 0.0;
         int totalReservas = reservas.size();
-        EstadisticaReservaResponse estadistica;
         HashMap<String, Double> porEstado = new HashMap<>();
         HashMap<String, Double> porServicio = new HashMap<>();
-        
+
         for (ReservaDTO reserva : reservas) {
-            if(reserva.getEstadoReserva().equals("COMPLETADA")) {
+            if (reserva.getEstadoReserva().equals("COMPLETADA")) {
                 totalGenerado += reserva.getPrecio().doubleValue();
             }
             String titleService = reserva.getTituloServicio();
             String estadoReserva = reserva.getEstadoReserva();
-            porServicio.compute(titleService, (k, valor) -> valor == null ? 1 : valor+1);
-            porEstado.compute(estadoReserva, (key, value) -> value == null ? 1 : value+1);
+            porServicio.compute(titleService, (k, valor) -> valor == null ? 1 : valor + 1);
+            porEstado.compute(estadoReserva, (k, valor) -> valor == null ? 1 : valor + 1);
         }
 
-        porEstado.replaceAll(
-            (key, valor) -> valor * (100/totalReservas)
-        );
+        porEstado.replaceAll((k, valor) -> valor * (100.0 / totalReservas));
+        porServicio.replaceAll((k, valor) -> valor * (100.0 / totalReservas));
 
-        porServicio.replaceAll(
-            (key, valor) -> valor * (100/totalReservas)
-        );
-        estadistica =  new EstadisticaReservaResponse(porServicio, porEstado, totalReservas, totalGenerado);
-        return estadistica;
+        return new EstadisticaReservaResponse(porServicio, porEstado, totalReservas, totalGenerado);
     }
 }
